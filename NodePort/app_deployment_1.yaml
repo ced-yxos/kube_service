@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-app
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapi-app
+  template:
+    metadata:
+      labels:
+        app: fastapi-app
+    
+    spec:
+      imagePullSecrets:
+        - name: repo-key
+      containers:
+        - name: fastapi-app-container
+          image: yxos/fastapi-app
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+      nodeSelector:
+          PoP: space_1
